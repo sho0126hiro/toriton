@@ -1,0 +1,126 @@
+openapi: 3.0.1
+info:
+  description: LookBackDiaryのBackend API (Core)
+  title: toriton Rest Api Specification
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /user/create:
+    post:
+      description: ユーザ登録
+      operationId: CreateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+          description: ユーザ登録
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: パラメータ不正
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: サーバー内エラー
+      summary: ユーザ登録
+      tags:
+      - User
+components:
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: パラメータ不正
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: サーバー内エラー
+  schemas:
+    User:
+      description: ユーザ共通オブジェクト
+      example:
+        birthday: birthday
+        profile_img_url: profile_img_url
+        firebase_id: firebase_id
+        name: name
+        id: id
+        biography: biography
+        email: email
+        username: username
+      properties:
+        id:
+          type: string
+        firebase_id:
+          type: string
+        profile_img_url:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        biography:
+          type: string
+        birthday:
+          type: string
+        email:
+          type: string
+      required:
+      - email
+      - name
+      - username
+      type: object
+    CreateUserRequest:
+      description: ユーザ登録用Request
+      example:
+        birthday: birthday
+        name: name
+        biography: biography
+        email: email
+        username: username
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        biography:
+          type: string
+        birthday:
+          type: string
+        email:
+          type: string
+      required:
+      - email
+      - name
+      - username
+      type: object
+    CreateUserResponse:
+      $ref: '#/components/schemas/User'
+    Error:
+      description: エラー
+      properties:
+        type:
+          description: エラー内容
+          enum:
+          - valildation_failed
+          - internal_server_error
+          type: string
+        message:
+          type: string
+      type: object

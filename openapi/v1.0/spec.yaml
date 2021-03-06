@@ -1,0 +1,108 @@
+openapi: 3.0.1
+info:
+  title: toriton Rest Api Specification
+  description: LookBackDiaryのBackend API (Core)
+  version: 1.0.0
+
+paths:
+  /user/create:
+    post:
+      operationId: CreateUser
+      summary: ユーザ登録
+      description: ユーザ登録
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+      responses:
+        200:
+          description: ユーザ登録
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateUserResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+components:
+  schemas:
+    User:
+      description: ユーザ共通オブジェクト
+      type: object
+      properties:
+        id:
+          type: string
+        firebase_id:
+          type: string
+        profile_img_url:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        biography:
+          type: string
+        birthday:
+          type: string
+        email:
+          type: string
+      required:
+        - username
+        - name
+        - email
+    CreateUserRequest:
+      description: ユーザ登録用Request
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        biography:
+          type: string
+        birthday:
+          type: string
+        email:
+          type: string
+      required:
+        - username
+        - name
+        - email
+
+    CreateUserResponse:
+      description: ユーザ登録Response
+      $ref: "#/components/schemas/User"
+
+    Error:
+      description: エラー
+      type: object
+      properties:
+        type:
+          description: エラー内容
+          type: string
+          enum:
+            - valildation_failed
+            - internal_server_error
+        message:
+          type: string
+
+  responses:
+    BadRequest:
+      description: パラメータ不正
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    InternalServerError:
+      description: サーバー内エラー
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"

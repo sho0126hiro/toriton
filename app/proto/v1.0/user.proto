@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+service User {
+    rpc GetUserByUsername  (GetUserByUsernameRequest) returns (GetUserByUsernameResponse);
+    rpc GetUserById (GetUserByIdRequest) returns (GetUserByIdResponse);
+}
+
+message GetUserByUsernameRequest {
+    string username = 1;
+}
+message GetUserByUsernameResponse {
+    string id = 1;
+    string username = 2;
+    string name = 3;
+    string email = 4;
+}
+message GetUserByIdRequest {
+    string id = 1;
+}
+message GetUserByIdResponse {
+    string id = 1;
+    string username = 2;
+    string name = 3;
+    string email = 4;
+}
