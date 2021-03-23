@@ -29,6 +29,23 @@ paths:
           $ref: "#/components/responses/BadRequest"
         500:
           $ref: "#/components/responses/InternalServerError"
+  /test:
+    get:
+      operationId: ApiTest
+      summary: テスト時に使用してください
+      tags:
+        - Test
+      responses:
+        200:
+          description: testResponse
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: test
 
 components:
   schemas:

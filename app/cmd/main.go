@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/sho0126hiro/toriton/app/internal"
+)
 
 func main() {
-	fmt.Println("Hello")
+	fmt.Println("hello!!!")
+	internal.Run()
 }
