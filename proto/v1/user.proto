@@ -1,0 +1,52 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+service User {
+    rpc GetUserByUsername  (GetUserByUsernameRequest) returns (GetUserByUsernameResponse) {
+        option (google.api.http) = {
+            get: "/v1/user/username/{username}"
+        };
+    }
+    rpc GetUserById (GetUserByIdRequest) returns (GetUserByIdResponse){
+        option (google.api.http) = {
+            get: "/v1/user/id/{id}"
+        };
+    }
+
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/user/create"
+        };
+    }
+}
+
+message GetUserByUsernameRequest {
+    string username = 1;
+}
+message GetUserByUsernameResponse {
+    int64 id = 1;
+    string username = 2;
+    string name = 3;
+    string email = 4;
+    string biography = 5;
+    string profile_image_url = 6;
+    string birthday = 7;
+    google.protobuf.Timestamp created_at = 8;
+    google.protobuf.Timestamp updated_at = 9;
+}
+message GetUserByIdRequest {
+    int64 id = 1;
+}
+message GetUserByIdResponse {
+    int64 id = 1;
+    string firebase_id = 2;
+    string username = 3;
+    string name = 4;
+    string email = 5;
+    string biography = 6;
+    string profile_image_url = 7;
+    string birthday = 8;
+    google.protobuf.Timestamp created_at = 9;
+    google.protobuf.Timestamp updated_at = 10;
+}

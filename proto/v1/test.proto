@@ -1,0 +1,14 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+
+service User {
+    rpc Test () returns (TestResponse) {
+        option (google.api.http) = {
+            get: "/v1/test"
+        };
+    }
+}
+
+message TestResponse {
+    string message = 1;
+}
